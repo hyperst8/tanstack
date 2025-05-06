@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useParams } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
-import { useState, useEffect } from "react";
+import type { ChartData, PriceData } from "../../types/cryptoTypes";
 import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -13,7 +13,6 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import type { ChartData, PriceData } from "../../types/cryptoTypes";
 
 ChartJS.register(
   CategoryScale,
@@ -32,18 +31,16 @@ export const Route = createFileRoute("/crypto/$coinId")({
 function CryptoChart() {
   const { coinId } = useParams({ strict: false }) as { coinId: string };
 
-  const [chartData, setChartData] = useState<ChartData | null>(null);
   const { data, error, isPending } = useQuery({
     queryKey: ["coin", coinId],
-    queryFn: () =>
-      fetch(
+    gcTime: 0,
+    queryFn: async () => {
+      const response = await fetch(
         `https://api.coingecko.com/api/v3/coins/${coinId}/market_chart?vs_currency=usd&days=7`
-      ).then((res) => res.json()),
-  });
+      );
+      const result = await response.json();
 
-  useEffect(() => {
-    if (data) {
-      const prices: PriceData[] = data.prices.map(
+      const prices: PriceData[] = result.prices.map(
         ([ts, price]: [number, number]) => ({
           date: new Date(ts).toLocaleDateString(),
           price,
@@ -63,9 +60,9 @@ function CryptoChart() {
         ],
       };
 
-      setChartData(chartData);
-    }
-  }, [coinId, data]);
+      return chartData;
+    },
+  });
 
   if (isPending) {
     return (
@@ -85,11 +82,7 @@ function CryptoChart() {
 
   return (
     <div className="bg-white rounded-xl p-4 shadow-xl my-8 mx-4">
-      {chartData ? (
-        <Line data={chartData} />
-      ) : (
-        <p>Loading chart for {coinId}...</p>
-      )}
+      {data ? <Line data={data} /> : <p>Loading chart for {coinId}...</p>}
     </div>
   );
 }
