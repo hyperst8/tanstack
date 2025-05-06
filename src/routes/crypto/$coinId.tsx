@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useParams } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import type { ChartData, PriceData } from "../../types/cryptoTypes";
@@ -88,46 +88,51 @@ function CryptoChart() {
   }
 
   return (
-    <div className="bg-white rounded-xl p-4 shadow-xl my-8 mx-4">
-      {data ? (
-        <>
-          <div className="flex justify-center gap-4 mb-4">
-            <TimeRangeButton
-              range="1"
-              label="24 Hours"
-              currentRange={timeRange}
-              onClick={handleTimeRangeChange}
-            />
-            <TimeRangeButton
-              range="7"
-              label="7 Days"
-              currentRange={timeRange}
-              onClick={handleTimeRangeChange}
-            />
-            <TimeRangeButton
-              range="30"
-              label="1 Month"
-              currentRange={timeRange}
-              onClick={handleTimeRangeChange}
-            />
-            <TimeRangeButton
-              range="90"
-              label="3 Months"
-              currentRange={timeRange}
-              onClick={handleTimeRangeChange}
-            />
-            <TimeRangeButton
-              range="365"
-              label="1 Year"
-              currentRange={timeRange}
-              onClick={handleTimeRangeChange}
-            />
-          </div>
-          <Line data={data} />
-        </>
-      ) : (
-        <p>Loading chart for {coinId}...</p>
-      )}
+    <div>
+      <Link to="/crypto" className="ml-8 hover:underline hover:font-bold">
+        Back
+      </Link>
+      <div className="bg-white rounded-xl p-4 shadow-xl my-8 mx-4">
+        {data ? (
+          <>
+            <div className="flex justify-center gap-4 mb-4">
+              <TimeRangeButton
+                range="1"
+                label="24 Hours"
+                currentRange={timeRange}
+                onClick={handleTimeRangeChange}
+              />
+              <TimeRangeButton
+                range="7"
+                label="7 Days"
+                currentRange={timeRange}
+                onClick={handleTimeRangeChange}
+              />
+              <TimeRangeButton
+                range="30"
+                label="1 Month"
+                currentRange={timeRange}
+                onClick={handleTimeRangeChange}
+              />
+              <TimeRangeButton
+                range="90"
+                label="3 Months"
+                currentRange={timeRange}
+                onClick={handleTimeRangeChange}
+              />
+              <TimeRangeButton
+                range="365"
+                label="1 Year"
+                currentRange={timeRange}
+                onClick={handleTimeRangeChange}
+              />
+            </div>
+            <Line data={data} />
+          </>
+        ) : (
+          <p>Loading chart for {coinId}...</p>
+        )}
+      </div>
     </div>
   );
 }
