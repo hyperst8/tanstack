@@ -10,6 +10,10 @@
   .home-links {
     @apply font-bold hover:opacity-70 p-2 rounded-md w-96 text-center;
   }
+
+  .center-container {
+    @apply flex justify-center items-center;
+  }
 }
 
 :root {
