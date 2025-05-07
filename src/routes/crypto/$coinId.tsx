@@ -32,7 +32,7 @@ export const Route = createFileRoute("/crypto/$coinId")({
 
 function CryptoChart() {
   const { coinId } = useParams({ strict: false }) as { coinId: string };
-  const [timeRange, setTimeRange] = useState<string>("7");
+  const [timeRange, setTimeRange] = useState<string>("30");
 
   const { data, error, isPending } = useQuery({
     queryKey: ["coin", coinId, timeRange],
