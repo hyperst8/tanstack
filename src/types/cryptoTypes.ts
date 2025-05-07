@@ -20,3 +20,12 @@ export interface TimeRangeButtonProps {
   currentRange: string; // The currently selected time range
   onClick: (range: string) => void; // Function to handle button click
 }
+
+export interface CoinData {
+  id: string;
+  market_cap_rank: number;
+  name: string;
+  image: string;
+  current_price: number;
+  price_change_percentage_24h: number;
+}
