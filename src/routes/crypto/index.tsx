@@ -12,7 +12,7 @@ export const Route = createFileRoute("/crypto/")({
   component: CryptoLayout,
 });
 
-const columnHelper = createColumnHelper();
+const columnHelper = createColumnHelper<CoinData>();
 
 function CryptoLayout() {
   const navigate = useNavigate();
