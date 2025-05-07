@@ -72,16 +72,12 @@ function CryptoChart() {
   };
 
   if (isPending) {
-    return (
-      <div className="min-h-incl-header flex justify-center items-center">
-        Loading...
-      </div>
-    );
+    return <div className="min-h-incl-header center-container">Loading...</div>;
   }
 
   if (error) {
     return (
-      <div className="min-h-incl-header flex justify-center items-center">
+      <div className="min-h-incl-header center-container">
         Error: {error.message}
       </div>
     );
