@@ -91,7 +91,7 @@ function CryptoChart() {
       <div className="bg-white rounded-xl p-4 shadow-xl my-8 mx-4">
         {data ? (
           <>
-            <div className="flex justify-center gap-4 mb-4">
+            <div className="flex flex-wrap justify-center gap-2 mb-4">
               <TimeRangeButton
                 range="1"
                 label="24 Hours"
