@@ -106,7 +106,7 @@ function CryptoLayout() {
   return (
     <div className="min-h-incl-header flex flex-col items-center mt-8">
       <h1 className="text-2xl">Crypto currencies</h1>
-      <div className="overflow-x-auto w-full max-w-4xl">
+      <div className="overflow-x-auto w-full max-w-4xl px-4">
         <table className="min-w-full bg-transparent border rounded-md shadow-md mt-4">
           <thead className="bg-gray-600 text-white">
             {table.getHeaderGroups().map((headerGroup) => (
@@ -114,7 +114,7 @@ function CryptoLayout() {
                 {headerGroup.headers.map((header) => (
                   <th
                     key={header.id}
-                    className="p-2 text-left border-b cursor-pointer"
+                    className="p-2 text-left text-sm md:text-base border-b cursor-pointer"
                     onClick={() => header.column.toggleSorting()}
                   >
                     {flexRender(
@@ -144,7 +144,10 @@ function CryptoLayout() {
                 }
               >
                 {row.getVisibleCells().map((cell) => (
-                  <td key={cell.id} className="p-2 border-b">
+                  <td
+                    key={cell.id}
+                    className="p-2 border-b text-sm md:text-base whitespace-nowrap"
+                  >
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </td>
                 ))}
