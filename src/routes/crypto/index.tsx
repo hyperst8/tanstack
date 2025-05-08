@@ -124,7 +124,7 @@ function CryptoLayout() {
                       ? " 🔼"
                       : header.column.getIsSorted() === "desc"
                         ? " 🔽"
-                        : ""}
+                        : " ↕️"}
                   </th>
                 ))}
               </tr>
