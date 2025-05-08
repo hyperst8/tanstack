@@ -8,6 +8,7 @@ import {
   getSortedRowModel,
 } from "@tanstack/react-table";
 import type { CoinData } from "../../types/cryptoTypes";
+import { formatNumber } from "../../utils/numberUtils";
 
 export const Route = createFileRoute("/crypto/")({
   component: CryptoLayout,
@@ -73,12 +74,12 @@ function CryptoLayout() {
     }),
     columnHelper.accessor("current_price", {
       header: "Price",
-      cell: (info) => `$${(info.getValue() as number).toFixed(2)}`,
+      cell: (info) => `$${formatNumber(Number(info.getValue().toFixed(2)))}`,
       sortingFn: "basic",
     }),
     columnHelper.accessor("price_change_percentage_24h", {
       header: "Last 24h",
-      cell: (info) => `${(info.getValue() as number).toFixed(2)}%`,
+      cell: (info) => `${Number(info.getValue()).toFixed(2)}%`,
       sortingFn: "basic",
     }),
   ];
