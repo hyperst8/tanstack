@@ -11,12 +11,19 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as PieChartImport } from './routes/pie-chart'
 import { Route as AboutImport } from './routes/about'
 import { Route as IndexImport } from './routes/index'
 import { Route as CryptoIndexImport } from './routes/crypto/index'
 import { Route as CryptoCoinIdImport } from './routes/crypto/$coinId'
 
 // Create/Update Routes
+
+const PieChartRoute = PieChartImport.update({
+  id: '/pie-chart',
+  path: '/pie-chart',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const AboutRoute = AboutImport.update({
   id: '/about',
@@ -60,6 +67,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutImport
       parentRoute: typeof rootRoute
     }
+    '/pie-chart': {
+      id: '/pie-chart'
+      path: '/pie-chart'
+      fullPath: '/pie-chart'
+      preLoaderRoute: typeof PieChartImport
+      parentRoute: typeof rootRoute
+    }
     '/crypto/$coinId': {
       id: '/crypto/$coinId'
       path: '/crypto/$coinId'
@@ -82,6 +96,7 @@ declare module '@tanstack/react-router' {
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/pie-chart': typeof PieChartRoute
   '/crypto/$coinId': typeof CryptoCoinIdRoute
   '/crypto': typeof CryptoIndexRoute
 }
@@ -89,6 +104,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/pie-chart': typeof PieChartRoute
   '/crypto/$coinId': typeof CryptoCoinIdRoute
   '/crypto': typeof CryptoIndexRoute
 }
@@ -97,22 +113,30 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/pie-chart': typeof PieChartRoute
   '/crypto/$coinId': typeof CryptoCoinIdRoute
   '/crypto/': typeof CryptoIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/crypto/$coinId' | '/crypto'
+  fullPaths: '/' | '/about' | '/pie-chart' | '/crypto/$coinId' | '/crypto'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/crypto/$coinId' | '/crypto'
-  id: '__root__' | '/' | '/about' | '/crypto/$coinId' | '/crypto/'
+  to: '/' | '/about' | '/pie-chart' | '/crypto/$coinId' | '/crypto'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/pie-chart'
+    | '/crypto/$coinId'
+    | '/crypto/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  PieChartRoute: typeof PieChartRoute
   CryptoCoinIdRoute: typeof CryptoCoinIdRoute
   CryptoIndexRoute: typeof CryptoIndexRoute
 }
@@ -120,6 +144,7 @@ export interface RootRouteChildren {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  PieChartRoute: PieChartRoute,
   CryptoCoinIdRoute: CryptoCoinIdRoute,
   CryptoIndexRoute: CryptoIndexRoute,
 }
@@ -136,6 +161,7 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/about",
+        "/pie-chart",
         "/crypto/$coinId",
         "/crypto/"
       ]
@@ -145,6 +171,9 @@ export const routeTree = rootRoute
     },
     "/about": {
       "filePath": "about.tsx"
+    },
+    "/pie-chart": {
+      "filePath": "pie-chart.tsx"
     },
     "/crypto/$coinId": {
       "filePath": "crypto/$coinId.tsx"
