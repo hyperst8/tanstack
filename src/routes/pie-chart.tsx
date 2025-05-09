@@ -66,13 +66,14 @@ function PieChartPage() {
           "#42A5F5",
           "#AB47BC",
         ],
+        borderWidth: 0,
       },
     ],
   };
 
   return (
     <div className="min-h-incl-header flex flex-col items-center mt-8">
-      <h1 className="text-2xl mb-4">
+      <h1 className="text-2xl text-center mb-4">
         Top 5 Countries by COVID-19{" "}
         {dataType.charAt(0).toUpperCase() + dataType.slice(1)}
       </h1>
@@ -81,17 +82,30 @@ function PieChartPage() {
           <button
             key={type}
             onClick={() => setDataType(type)}
-            className={`cursor-pointer px-4 py-2 rounded-full transition-colors duration-200 ${dataType === type ? "bg-blue-600 text-white shadow-md" : "bg-white text-blue-600 border border-blue-600 hover:bg-blue-600 hover:text-white"}`}
+            className={`cursor-pointer px-4 py-2 rounded-full transition-colors duration-200 ${dataType === type ? "bg-blue-600 text-white shadow-md border border-blue-600" : "bg-white text-blue-600 hover:bg-blue-600 hover:text-white"}`}
           >
             {type.charAt(0).toUpperCase() + type.slice(1)}
           </button>
         ))}
       </div>
-      <div className="w-full max-w-2xl">
-        <Pie
-          data={chartData}
-          options={{ maintainAspectRatio: false, responsive: true }}
-        />
+      <div className="w-full max-w-3xl flex justify-center">
+        <div className="w-full h-[260px] md:h-[400px]">
+          <Pie
+            data={chartData}
+            options={{
+              maintainAspectRatio: false,
+              responsive: true,
+              plugins: {
+                legend: {
+                  labels: {
+                    color: "#ffffff",
+                    boxWidth: 20,
+                  },
+                },
+              },
+            }}
+          />
+        </div>
       </div>
     </div>
   );
